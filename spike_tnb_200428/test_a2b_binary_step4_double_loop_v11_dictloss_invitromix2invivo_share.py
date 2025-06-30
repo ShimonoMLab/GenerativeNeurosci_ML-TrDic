@@ -23,7 +23,6 @@ from argparse import ArgumentParser
 from pathlib import Path
 from logging import getLogger
 
-#matplotlib.use('TkAgg')  # or another supported backend
 matplotlib.use('Agg')        
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="torch.nn.functional")
@@ -37,7 +36,6 @@ region_id = {}
 region_date = {}
 region_date_s = {}
 
-
 ###############################################################################
 data_name_train = [None] * 17  # Create a list of 17 elements (index 0 to 16)
 init_cell_index_train0 = [None] * 17  # Create a list of 17 elements (index 0 to 16)
@@ -45,84 +43,11 @@ init_cell_index_train0 = [None] * 17  # Create a list of 17 elements (index 0 to
 for group in range(1, 17):  # Loop from 1 to 16
 
     if group == 1:
-        data_name_train[group] = ['210126']
-        init_cell_index_train0[group] = 0
-
-    elif group == 2:
-        data_name_train[group] = ['210706']
-        init_cell_index_train0[group] = 0
-
-    elif group == 3:
-        data_name_train[group] = ['210216']
-       # data_name_train[group] = ['191217']
-        init_cell_index_train0[group] = 0
-
-    elif group == 4:
-       # data_name_train[group] = ['201215']
-        data_name_train[group] = ['200615']
-        init_cell_index_train0[group] = 0
-
-    elif group == 5:
-        data_name_train[group] = ['210715']
-      #  data_name_train[group] = ['211207']
-        init_cell_index_train0[group] = 0
-
-    elif group == 6:
-        data_name_train[group] = ['190423']
-       # data_name_train[group] = ['190806']
-        init_cell_index_train0[group] = 0
-
-    elif group == 7:
-        data_name_train[group] = ['201201']
-      #  data_name_train[group] = ['200609']
-        init_cell_index_train0[group] = 0
-
-    elif group == 8:
-        data_name_train[group] = ['190910']
-        init_cell_index_train0[group] = 0
-
-    elif group == 9:
-        print('----------------')
-        print('Right')
-        print('----------------')
-        data_name_train[group] = ['210518']
-       # data_name_train[group] = ['210511']
-        init_cell_index_train0[group] = 0
-
-    elif group == 10:
-        data_name_train[group] = ['200526']
-        init_cell_index_train0[group] = 0
-
-    elif group == 11:
-        data_name_train[group] = ['200901']
-        init_cell_index_train0[group] = 0
-
-    elif group == 12:
-        data_name_train[group] = ['210525']
-        init_cell_index_train0[group] = 0
-
-    elif group == 13:
-        data_name_train[group] = ['200714']
-        init_cell_index_train0[group] = 0
-
-    elif group == 14:
-        data_name_train[group] = ['200728']
-        init_cell_index_train0[group] = 0
-
-    elif group == 15:
-        data_name_train[group] = ['201027']
-     #   data_name_train[group] = ['201006']
-        init_cell_index_train0[group] = 0
-
-    elif group == 16:
-     #   data_name_train[group] = ['201006']
-        data_name_train[group] = ['200707']# , '200804']
+        data_name_train[group] = ['210511']
         init_cell_index_train0[group] = 0
 
 ###############################################################################
 
-# data_name_test = [None] * 11  # Create a list of 17 elements (index 0 to 16)
-# init_cell_index_test0 = [None] * 11  # Create a list of 17 elements (index 0 to 16)
 data_name_test = [None] * 10  # Create a list of 17 elements (index 0 to 16)
 init_cell_index_test0 = [None] * 10  # Create a list of 17 elements (index 0 to 16)
 depth_min_test = [None] * 10  # Create a list of 17 elements (index 0 to 16)
@@ -136,80 +61,6 @@ for group in range(1, 10):  # Angelakilab / Loop from 1 to 16
         depth_min_test[group] = 1800
         depth_max_test[group] = 3700
     
-    elif group == 2: # Mrsic-Flobal lab/  Somatomotor 5-2/3
-        data_name_test[group] = ['mrsicflogellab/Subjects/SWC_038/2020-08-01/001/']
-        init_cell_index_test0[group] = 300 # - 428
-        depth_min_test[group] = 2500
-        depth_max_test[group] = 3700
-    
-    elif group == 3: # Mrsic-Flobal lab/ Somatomotor 5-2/3
-        data_name_test[group] = ['mrsicflogellab/Subjects/SWC_038/2020-07-31/001/'] 
-        init_cell_index_test0[group] = 500 # - 628
-        depth_min_test[group] = 2500
-        depth_max_test[group] = 3700
-    
-    elif group == 4: # Mrsic-Flobal lab/ Orbitofrontal, Frontal Pole, Somatomotor6
-        data_name_test[group] = ['mrsicflogellab/Subjects/SWC_038/2020-07-30/001/'] 
-        init_cell_index_test0[group] = 450 # 650
-        depth_min_test[group] = 2500
-        depth_max_test[group] = 3700
-        
-    elif group == 5: # Hoferlab /  2020.9.21
-        # LPO Lateral preoptic area  内側視索前野
-        # NDB  Diagonal band nucleus  前脳基底部
-        # と
-        # PS  Parastrial nucleus
-        # MY Medulla
-        data_name_test[group] = ['hoferlab/Subjects/SWC_043/2020-09-21/001/']
-        init_cell_index_test0[group] = 0
-        depth_min_test[group] = 0
-        depth_max_test[group] = 1200
-        
-    elif group == 6: # Angelakilab / CENT     Lobule Arb  arbor vitae 小脳活樹
-        data_name_test[group] = ['angelakilab/Subjects/NYU-40/2021-04-13/001/'] 
-        init_cell_index_test0[group] = 200
-        depth_min_test[group] = 2500
-        depth_max_test[group] = 3700
-    
-    elif group == 7: 
-        # Hofer lab/SWC043/の 2020.9.20
-        # BMAp : Basomedial amygdala
-        # COApl : Cortical amygdala
-        # PA    : Posterior amygdala
-        # CTXsp : Cortical subplate
-        data_name_test[group] = ['hoferlab/Subjects/SWC_043/2020-09-20/001/']  
-        init_cell_index_test0[group] = 0
-        depth_min_test[group] = 0
-        depth_max_test[group] = 1200
-    
-        
-    elif group == 8: # Angelakilab /  2021.4.15   このデータは脳の深部すぎて使えない。
-        # ANCr1: Crus  大脳脚
-        # Arb   arbor vitae  小脳活樹
-        # VCO: Ventral cochlear nucleus　腹側蝸牛神経核
-        # DCO  Dorsal cochlear nucleus
-        # sptV
-        data_name_test[group] = ['angelakilab/Subjects/NYU-40/2021-04-15/001/'] 
-        init_cell_index_test0[group] = 80
-        depth_min_test[group] = 0
-        depth_max_test[group] = 1200
-        
-    elif group == 9: 
-            # 2021.4.15   このデータは脳の深部すぎて使えない。ANCr1: Crus  大脳脚
-            # Arb   arbor vitae  小脳活樹
-            # VCO: Ventral cochlear nucleus　腹側蝸牛神経核
-            # DCO  Dorsal cochlear nucleus
-            # sptV
-        data_name_test[group] = ['angelakilab/Subjects/NYU-40/2021-04-16/002/']
-        init_cell_index_test0[group] = 0
-        depth_min_test[group] = 0
-        depth_max_test[group] = 1200
-    
-    # elif group == 10: # Mrsic-Flobal lab/ Somatomotor 5-2/3
-    #     data_name_test[group] = ['mrsicflogellab/Subjects/SWC_038/2020-07-30/001/'] 
-    #     init_cell_index_test0[group] = 650 # 680 # 
-    #  #   data_name_test[group] = ['hoferlab/Subjects/SWC_043/2020-09-21/001/'] 
-    #  #   init_cell_index_test0[group] = 0
         
 ###############################################################################
 region_id_train0 = {}
@@ -255,9 +106,7 @@ def calculate_spike_density(data):
     data = np.clip(data, 0, None)
     return np.mean(data), np.min(data), np.max(data)
 
-# def adjust_threshold_init(output, target_density, initial_threshold=1, max_iterations=1000, tolerance=1e-6):
 def adjust_threshold_init(output, target_density, initial_threshold=1, max_iterations=1000, tolerance=0.001):
-# def adjust_threshold_init(output, target_density, initial_threshold=1, max_iterations=1000, tolerance=0.01):
     print("adjust_threshold: ")
     print("----_calculate_data_density、training dataの発火率を計算して、最適化している")
     # 出力データを非負にクリップ（ReLUを適用）
@@ -304,7 +153,6 @@ def adjust_threshold_init(output, target_density, initial_threshold=1, max_itera
 
         # しきい値を二分法で調整
         threshold = (low + high) / 2
-       #  threshold = (low*2 + high) / 3
         
         if iteration_step % 100 == 1:
            print("Modified thr.: " + str(threshold))
@@ -312,7 +160,6 @@ def adjust_threshold_init(output, target_density, initial_threshold=1, max_itera
     print("Iteration step of threshold tuning: " + str(iteration_step))
     print("1000 * current density: " + str(1000 *current_density) + ", 1000 *target density: " + str(1000 *target_density))
     if target_density > current_density:
-    #     threshold = threshold-0.0015
          threshold = threshold*0.999
          print("Threshold reset:")
          print("1000 * current density: " + str(1000 *current_density) + ", 1000 *target density: " + str(1000 *target_density))
@@ -357,8 +204,6 @@ def adjust_threshold_ROC_with_max_fpr(output, target, max_fpr=0.2):
     youden_index = tpr[valid_indices] - fpr[valid_indices]
     optimal_idx = valid_indices[np.argmax(youden_index)]
     optimal_threshold = thresholds[optimal_idx]
-    
-  #  print("What!!!?   3 : "+str(optimal_threshold))
     
     print(f"Optimal Threshold for Low FPR (Youden's J statistic with max_fpr={max_fpr}): {optimal_threshold:.4f}")
     return optimal_threshold, roc_auc
@@ -589,80 +434,6 @@ def organize_and_save_spike_data(infile2, outfile, num_cells, sep_size, init_cel
     return spike_matrix
 
 
-# def organize_and_save_spike_data(infile2, outfile, num_cells, sep_size, init_cell_index):
-#     """
-#     NPZファイルからスパイクデータを読み込み、整理して保存する関数
-    
-#     Parameters:
-#     -----------
-#     infile2: str
-#         入力NPZファイルのパス
-#     outfile: str
-#         出力NPYファイルのパス
-#     num_cells: int
-#         処理する細胞数
-#     sep_size: int
-#         時間ステップの区切りサイズ
-#     init_cell_index: int
-#         開始セル番号
-#     """
-#     # NPZファイルからデータを読み込む
-#     with np.load(infile2) as data:
-#         clusters = data['clusters']
-#         times = data['times'] * 1000  # 秒からミリ秒への変換
-        
-#         print("max time:" + str(np.max(times)))
-        
-#     # ユニークな細胞番号を取得
-#     unique_clusters = np.unique(clusters)
-#     num_unique_clusters = len(unique_clusters)
-#     print(f"重複しない整数の個数は: {num_unique_clusters}")
-    
-#     # 時間の正規化
-#     times = times - np.min(times)  # 最小値を0に揃える
-    
-#     # 最大時間を計算
-#     max_time = np.max(times)
-#     max_time_int = int(np.ceil(max_time))  # 切り上げて確実にすべてのスパイクを含める
-    
-#     # 実際に使用する時間範囲を決定
-#     # sep_sizeが指定されている場合はそれを使用、そうでなければmax_time_intを使用
-#     actual_time_range = min(sep_size, max_time_int + 1) if sep_size > 0 else max_time_int + 1
-    
-#     # スパイク行列の初期化
-#     spike_matrix = np.zeros((num_cells, actual_time_range), dtype=np.int32)
-    
-#     # デバッグ情報の出力
-#     print("len(times):" + str(len(times)))
-#     print("len(clusters):" + str(len(clusters)))
-#     print("FRs:" + str(len(times)/(num_unique_clusters*actual_time_range)))
-#     print("max(times):" + str(max(times)))
-#     print("actual_time_range:" + str(actual_time_range))
-    
-#     # スパイクデータの変換
-#     for i in range(len(times)):
-#         cell_id = int(clusters[i])
-#         time_step = int(times[i])
-        
-#         # 範囲チェック
-#         if init_cell_index <= cell_id < num_cells + init_cell_index:
-#             if 0 <= time_step < actual_time_range:  # 時間の範囲チェックを追加
-#                 spike_matrix[cell_id-init_cell_index, time_step] = 1
-#             # else:
-#             #     print(f"Warning: time_step {time_step} out of range")
-    
-#     # 平均発火率の計算と出力
-#     mean_firing_rate = np.mean(spike_matrix)
-#     print("FR0:" + str(mean_firing_rate))
-    
-#     # 結果を保存（転置して保存）
-#     np.save(outfile, spike_matrix.T)
-#     print(f"Spike data saved to {outfile}")
-#     time.sleep(5)
-    
-#     return spike_matrix
-
-
 
 ###############################################################################
 
@@ -778,9 +549,7 @@ def div_weig_ryo(data_dir, div_count0, start_time_step0, segment_step0, sep_size
         print(f"Converted and loaded {infile2}")
     else:
         print(f" {infile2} dose not exists.")
-      #  raise FileNotFoundError(f" {infile2} dose not exists.")
     
-   # if os.path.exists(infile1):
     aa1 = np.load(infile1)
     print(f"Loaded {infile1}")
     print("                   -- size :", len(aa1))
@@ -792,34 +561,15 @@ def div_weig_ryo(data_dir, div_count0, start_time_step0, segment_step0, sep_size
     # start_pがデータ範囲を超えている場合
     if start_time_step0 >= max_time_steps:
         print(f"Warning: start_time_step {start_time_step0} exceeds available time step range {max_time_steps}. Returning empty array.")
-      #  return np.zeros((aa1.shape[0], 0))  # 細胞数×0の配列を返す
     else: 
         print(f"OK: start_time_step {start_time_step0} does not exceed available time step range {max_time_steps}. ")
     
-    # 開始と終了位置の計算（時間ステップ方向でのスライス）
-   # start_p = int(start_time_step0)
-  #  end_p = int(start_time_step0 + sep_size0)
-   # start_p, end_p = int(start_time_step0), int(start_time_step0 + sep_size0)
-   # aa12 = np.delete(np.delete(aa1, slice(end_p, aa1.shape[0]), axis=0), slice(0, start_p), axis=0).T.astype(np.int32).T
-
     start_p = int(start_time_step0)
     end_p = min(start_time_step0 + sep_size0, aa1.shape[0])  # 範囲外アクセスを防ぐためにminを使用
     aa12 = aa1[start_p:end_p, :].astype(np.int32)
     
-  #  aa12 = np.delete(np.delete(aa1, slice(end_p, aa1.shape[1]), axis=1), slice(0, start_p), axis=1).T.astype(np.int32).T
     return aa12, extract_index  #.T
 
-
-    # # end_pがデータの最大時間ステップサイズを超えないように調整
-    # end_p = min(end_p, max_time_steps)
-
-    # # スパイクデータを指定範囲でスライスし、128細胞×時間ステップの形式に整形
-    # aa12 = aa1[:, start_p:end_p].astype(np.int32)
-    
-    # # x軸とy軸を交換（転置）して返す
-    # aa12_transposed = aa12 #.T
-    
-    # return aa12_transposed
 
 ###############################################################################
 def npy2npr_mod3_func(input, output):
@@ -871,8 +621,6 @@ def parse_log_line(line):
 ###############################################################################
 def test_func(gen_dir2_now):
     kk = 0
-  #  lines = safe_opentail(gen_dir2_now + "/transformer/log.log", 2 * kk + 3)
-    
     # Ensure gen_dir2_now is a Path object
     gen_dir2_now = Path(gen_dir2_now)
     # Correct path concatenation
@@ -906,8 +654,6 @@ def test_func(gen_dir2_now):
 def update_order_with_heuristics(current_order, temperature, iteration_num, num_trials=3, max_swap_count=10):
     new_order = current_order.copy()
     
-    # 温度に基づいて入れ替え個数を決定し、上限を設定
-   # swap_count = int(len(new_order) * (temperature / 500.0))
     swap_count = int(len(new_order) * (temperature / 400.0))
     swap_count = max(1, min(swap_count, max_swap_count))  # 上限を max_swap_count に設定
 
@@ -971,31 +717,12 @@ def collate_fn(batch):
     return data_padded, labels
 
 ###############################################################################
-# group_IDs1 = [3, 4, 5, 1, 2, 6] + list(range(7, 18)) 
 
-# group_IDs1 = [6] + [9]
-# group_IDs1 = list(range(1, 17)) # + [1]
-
-
-# group_IDs1 = list(range(11, 17)) + [1]
-# group_IDs1 = list(range(16, 17)) #  + [1]
-# group_IDs1 = list(range(7, 8)) #  + [1]
 group_IDs1 = list(range(1, 17))
-# group_IDs1 = list(range(12, 13))
-# group_IDs1 = list(range(13, 14))
-# group_IDs1 = []
-#group_IDs1 = [1] + list(range(3, 17)) # range(1, 17)
-
-# group_IDs = [1, 2, 3, 4, 5, 6] + list(range(7, 18)) # 
-# group_IDs2 = list(range(1, 11)) 
-# group_IDs2 = list(range(4, 11))   # data10は走らせるべきではない
-# group_IDs2 = list(range(1, 10)) 
 group_IDs2 = list(range(1, 10)) 
-# group_IDs2 = [1] + list(range(3, 11)) # 
 ## ###########################################################################
 epoch_num = 200 # 60 # 2 # 150 # 3# 25 # 3 #   104 #25# 36# 71 # 35 # 3 #102 # 3 # 50 #10 # 20 #5 #350
 
-# group_ID = 2
 for group_ID1 in group_IDs1:
 ## ###########################################################################
     region_date_train = {}
@@ -1004,7 +731,6 @@ for group_ID1 in group_IDs1:
     init_cell_index_test = {}
     
     for group_ID2 in group_IDs2:
-      #  if group_ID1!=group_ID2:
             
             for i in range(1, 2):
                region_date_train[i] = region_date_train0[group_ID1][i]
@@ -1088,11 +814,7 @@ for group_ID1 in group_IDs1:
                     self.dir_spike = self._get('path', 'spike')
                     self.dir_result = self._get('path', 'result')
                     
-                 #   self.threshold = 0.65 
                     self.threshold = self._getfloat('transformer', 'threshold_spike_counts') 
-                   # self.mode = ''train
-                 #   print("Config.read")
-                  #  print("config:", self.n_layer_list)
                   
                     return self
             
@@ -1116,8 +838,6 @@ for group_ID1 in group_IDs1:
                     return bool(self.config[section].as_bool(option))
                 
             ###############################################################################
-            # Dice損失の導入
-            # 「1」が圧倒的に少なく、その検出が重要な場合は、0.5以外の閾値を設定することを検討してみる価値がある。
             
             class DiceLoss(nn.Module):
                 def __init__(self, smooth=1.0, penalty_weight=0.1):
@@ -1126,8 +846,6 @@ for group_ID1 in group_IDs1:
                     self.penalty_weight = penalty_weight
             
                 def forward(self, inputs, targets, current_density, target_density,loss_show):
-                  #  input = input.contiguous()
-                  #  target = target.contiguous()
                     inputs = torch.sigmoid(inputs)
             
                     # 入力とターゲットの形状をフラットにする
@@ -1144,14 +862,7 @@ for group_ID1 in group_IDs1:
                     intersection = (inputs_flat * targets_flat).sum()
                     dice_loss0 = 1 - (2. * intersection + self.smooth) / (inputs_flat.sum() + targets_flat.sum() + self.smooth)
         
-                   # dice_loss = log(1+dice_loss0)
                     dice_loss = torch.log(1 + dice_loss0)
-                    # dice_loss2 = torch.log(1 + dice_loss1)
-                    # dice_loss3 = torch.log(1 + dice_loss2)
-                    # dice_loss4 = torch.log(1 + dice_loss3)
-                    # dice_loss5 = torch.log(1 + dice_loss4)
-                    # dice_loss6 = torch.log(1 + dice_loss5)
-                    # dice_loss  = torch.log(1 + dice_loss6)
         
                     if loss_show == 1: 
                         print("/////////////////////////////////////////////////////////////////////////////")
@@ -1165,8 +876,6 @@ for group_ID1 in group_IDs1:
                         print("TotalLoss = " + str(1-self.penalty_weight) + " * DiceLoss + " + str(self.penalty_weight)+ " * Penalty = " + str(total_loss.item()))
                         print("/////////////////////////////////////////////////////////////////////////////")
                         print("/////////////////////////////////////////////////////////////////////////////")
-            
-                  #  total_loss = dice_loss + self.penalty_weight * penalty
             
                     return total_loss
             
@@ -1277,7 +986,6 @@ for group_ID1 in group_IDs1:
                     self.criterion = self._init_criterion()
                     self.optimizer = self._init_optimizer()
                     self.scheduler = CustomStepLR(self.optimizer, step_size=5, gamma=0.9, min_lr=0.000025)
-                #  self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=10, gamma=0.89)  # スケジューラーの追加
                   
                     if len(self.config.cuda) == 1:
                         self.model = self.model.to(self.device)
@@ -1302,8 +1010,6 @@ for group_ID1 in group_IDs1:
                         
                         self.previous_loss = None
                         self.previous_threshold = 1.0
-              #      else: 
-              #          self.threshold = threshold
                         
                     
                 def _calculate_data_density(self):
@@ -1365,9 +1071,6 @@ for group_ID1 in group_IDs1:
                         sample_output = self.model(sample_data.to(self.device))
                         print("この上のmodelで閾値を初期化してしまっている！！")
                      
-                    # adjust_thresholdの中で、Reluの処理を行う様にした
-                    #  sample_output = torch.relu(sample_output) ##################################
-                #    print("---------------------------------------------------------------------")
                     
                     print("----First definition of threshod----------------")
                     self.previous_threshold = adjust_threshold_init(sample_output, self.target_density, initial_threshold=self.threshold)
@@ -1399,15 +1102,12 @@ for group_ID1 in group_IDs1:
                         
                         num_batches = 0
                         for data in dataloader:
-                      #  for i, data in enumerate(dataloader):
-                       #     print(f"Batch {i} size: {[x.shape for x in data]}")
                             num_batches += 1
                             
                             print("-----------------------------------------------------------------------------")
                             print("Mode: ", mode)
                             print(f"Threshold before _process_batch: {self.threshold}")
                             
-                          #  print("ここは、mode2に'train'と直打ちせずに、modeにして、validationでは、学習しないようにしなくてはならない！")
                             # バッチ処理
                             loss_value, output = self._process_batch(data, mode2=mode)
                            # total_loss += loss_value.item()
@@ -1423,39 +1123,14 @@ for group_ID1 in group_IDs1:
                             loss_diff_thr = 1e-5 ######################################
                             
                             print("output:" + str(np.shape(output)))
-                         #   print("result: " + str(np.shape(result)))
                                 
                             if mode == 'train':
                                 
-                             #   self.threshold = adjust_threshold_init(output, self.target_density, initial_threshold=self.threshold)
-                             #   self.threshold = adjust_threshold_ROC(output, data[:, 1:])
                                 # 適応的にしきい値を調整
                                 print(f"Current loss: {epoch_average_loss}, previous loss: {self.previous_loss}")
                                 
-                                # if loss_diff < loss_diff_thr or self.threshold_updated == True:
-                                #     print("AYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYAYA")
-                                #     print("Currently, thresholding criterion shifting to spike density dependent method.")
-                                   
-                                #     print("(*´︶*)` (=^･ω･^=)  ☆彡｡:*･ﾟ✩  U･ｪ･U  (⊙_☉)   (ง •̀_•́)ง   (｡•ᴥ•｡)  ☆彡｡:*･ﾟ✩")
-                                #     aa = adjust_threshold_init(output, self.target_density, initial_threshold=self.threshold)
-                                #   #  if aa < 0.923:
-                                #   #      self.threshold = aa
-                                #     # if self.threshold >= self.previous_threshold:
-                                #     #     print("0.02 * self.threshold: "+ str(self.threshold) + " + 0.98 * self.previous_threshold:" + str(self.previous_threshold))
-                                #     #     self.threshold = 0.02 * aa + 0.98 * self.previous_threshold
-                                #     #    # self.previous_threshold = self.threshold
-                                #     #     self.threshold = self.previous_threshold
-                                #  #   self.threshold = 0.01 * aa + 0.99 * self.previous_threshold
-                                #     self.threshold = 0.01 * aa + 0.99 * self.previous_threshold
-                                #     self.previous_threshold = self.threshold
-                                #     self.threshold_updated = True
-                                #     print("What!!!?   (post(pre-converge)-converge) : "+str(self.previous_threshold))
-                                    
-                                # else:
                                 print("Currently, thresholding criterion is ROC dependent method. (2)")
                                 # まだ収束していない場合はROCカーブに基づくしきい値
-                             #    self.previous_threshold, roc_auc = adjust_threshold_ROC_with_max_fpr(output, data[:, 1:], max_fpr=0.07)
-                             #   self.previous_threshold, roc_auc = adjust_threshold_ROC_with_max_fpr(output, data[:, 1:], max_fpr=0.01)
                                 aa, roc_auc = adjust_threshold_ROC_with_max_fpr(output, data[:, 1:], max_fpr=0.005)
                                 
                                 print(data)
@@ -1470,10 +1145,6 @@ for group_ID1 in group_IDs1:
                                 self.previous_threshold = self.threshold
                                 print("What!!!?   (pre-converge) : "+str(self.previous_threshold))
                                  
-                              #  self.previous_threshold = self.threshold
-                              
-                            #    print("Output values:", output)
-                            #    print("Output shape:", output.shape)
 
                                 # data[:, 1:] の内容と形状の確認
                                 print("Target values:", data[:, 1:])
@@ -1481,7 +1152,6 @@ for group_ID1 in group_IDs1:
                                 
                                 # ROCのプロットを保存
                                 print("output:" + str(np.shape(output)))
-                            #    print("result[:, 1:]:" + str(np.shape(result[:, 1:])))
                                 
                                 print("outpu: "+str(output))
                                 print("data: "+str(data))
@@ -1510,13 +1180,6 @@ for group_ID1 in group_IDs1:
                             elif mode =='valid':
                                 if loss_diff < loss_diff_thr: # or self.threshold_updated == True:
                                    self.threshold_updated = True
-                                # output の内容と形状の確認
-                            #    print("Output values:", output)
-                            #    print("Output shape:", output.shape)
-
-                                # data[:, 1:] の内容と形状の確認
-                            #    print("Target values:", data[:, 1:])
-                            #    print("Target shape:", data[:, 1:].shape)
                                 
                                 unique_values = torch.unique(data[:, 1:])
                                 print("Unique values in target:", unique_values)
@@ -1533,7 +1196,6 @@ for group_ID1 in group_IDs1:
                                 print("====------------------------====")
                                 
                                 plt.savefig(f"{gen_dir}/ROC_valid_for_thr_epoch_{epoch + 1}.pdf")
-                               # plt.show()
                                 plt.close()
                                 
                                 file_path = os.path.join(f"{gen_dir}/roc_auc_valid_epoch_{epoch + 1}.txt")
@@ -1556,7 +1218,6 @@ for group_ID1 in group_IDs1:
                             
                                 roc_auc, fpr, tpr, thresholds = plot_ROC(output, data[:, 1:])
                                 plt.savefig(f"{gen_dir}/ROC_test_for_thr_epoch_{epoch + 1}.pdf")
-                               # plt.show()
                                 plt.close()
                                 
                                 
@@ -1586,8 +1247,6 @@ for group_ID1 in group_IDs1:
                             #######################################################################
                             unique_values = output.detach().cpu().numpy()
                             
-                        #    print("What!!!?: "+str(self.threshold))
-                            
                             plt.figure(figsize=(12, 10))
                             
                             # Plot original histogram
@@ -1608,12 +1267,10 @@ for group_ID1 in group_IDs1:
                             plt.tick_params(axis='both', which='major', labelsize=12)
                             threshold_value = max(self.threshold, 1e-10)  # 負の値を防ぐために最小値を設定
                             plt.axvline(x=np.log10(threshold_value), color='red', linestyle='--', linewidth=2)
-                          #  plt.axvline(x=np.log10(self.threshold + 1e-10), color='red', linestyle='--', linewidth=2)
                             
                             # Plot original histogram with fixed xlim
                             plt.subplot(2, 2, 3)
                             if self.threshold_updated:
-                                # Plot histogram with a larger number of bins for finer granularity
                                 counts, bins, _ = plt.hist(unique_values.ravel(), bins=1000, color='blue', alpha=0.7)
                             else:
                                 counts, bins, _ = plt.hist(unique_values.ravel(), bins=50, color='blue', alpha=0.7)
@@ -1623,11 +1280,6 @@ for group_ID1 in group_IDs1:
                             plt.title('Histogram of Unique Values (Original Axis, Limited)', fontsize=16)
                             plt.tick_params(axis='both', which='major', labelsize=12)
                             plt.axvline(x=self.threshold, color='red', linestyle='--', linewidth=2)
-                            # if self.threshold_updated == True:
-                            #    plt.xlim(0.94, 1.0)
-                            #    plt.ylim(0,300000)
-                            # else:
-                            #    plt.xlim(-0.05, 1.05)
                             
                             if self.threshold_updated:
                                 # Find the bins that fall within the specified xlim range
@@ -1854,12 +1506,9 @@ for group_ID1 in group_IDs1:
                     self.model.eval()
                     correctsample_number_sum = {'all': 0, 'spike': 0, 'nonspike': 0}
                     count_sum = {'all': 0, 'spike': 0, 'nonspike': 0}
-                  #  , correctsample_number_sum_count_sum = {'all': 0, 'spike': 0, 'nonspike': 0}, {'all': 0, 'spike': 0, 'nonspike': 0}
                     for data in dataloader_test:
-                       # _, output = self._process_batch(data, is_train=False) # , threshold=self.threshold) # -0.2)
-                        _, output = self._process_batch(data, mode2='valid') # , threshold=self.threshold) # -0.2)
+                        _, output = self._process_batch(data, mode2='valid') 
                         print( "Summed value" + str(sum(sum(output))/(np.size(output)[0]*np.size(output)[0])))
-                   #     print(f"Data binary: " + str(output))  # 新しいデータの形状を確認
                         
                         for key, value in self._get_threshold_number(data).items():
                             sample_number_sum[key] += value
@@ -1884,20 +1533,11 @@ for group_ID1 in group_IDs1:
                     print(f"Threshold in generate: {self.threshold}")
                     
                     _, valid_data, test_data = self._load_data(raw=True)
-                 #   _, valid_data, test_data = self._load_data()
                     test_data = test_data[None, :, :]  # add batch dimension
                     valid_data = valid_data[None, :, :]  # add batch dimension
                 
                     self.model.eval()
                     
-                    # if generate_mode == 'autoregression':
-                    #     outputs = self._autoregression(test_data, quantization_mode)
-                    #     result = np.array([output.to('cpu').numpy()[:, 0, :] for output in outputs]).transpose(1, 0, 2)
-                        
-                    #     outputs_valid = self._autoregression(valid_data, quantization_mode)
-                    #     result_valid = np.array([output_valid.to('cpu').numpy()[:, 0, :] for output_valid in outputs_valid]).transpose(1, 0, 2)
-                        
-                    # else:  # Assuming 'fromdata'
                     torch.backends.cudnn.enabled = False ###########################
                     
                     result_valid = self._generate_from_data(valid_data, quantization_mode).to('cpu').numpy()
@@ -1908,7 +1548,7 @@ for group_ID1 in group_IDs1:
                           
                     roc_auc0, fpr0, tpr0, thresholds0 = plot_ROC(valid_data, result_valid)
                     plt.savefig(f"{gen_dir}/ROC_test_for_thr_epoch_final_befthr.pdf")
-                    # plt.show()
+                    
                     plt.close()
                     
                     file_path = os.path.join(f"{gen_dir}/roc_auc_test_generate_epoch_final_befthr.txt")
@@ -1929,7 +1569,6 @@ for group_ID1 in group_IDs1:
                         
                     #####################################################################
                     
-                    # result_valid が numpy.ndarray である場合、torch.Tensor に変換
                     if isinstance(result_valid, np.ndarray):
                         result_valid = torch.tensor(result_valid)
     
@@ -3007,92 +2646,6 @@ for group_ID1 in group_IDs1:
                         return np.sum((inputs == 1) & (targets == 1), axis=0).astype(float) / \
                                np.sum((inputs == 1) | (targets == 1), axis=0).astype(float)
                     
-                    # # Iteration parameters
-                    # iterations = 5# 6
-                    # match_rates_from_starting0 = []
-                    # match_rates_from_ideal0 = []
-                    # match_rates_from_previous0 = []
-                    
-                    # # Convert PyTorch tensors to NumPy arrays for efficiency
-                    # inputs_it_np = inputs_it.numpy()
-                    # targets_it_np = targets_it.numpy()
-                    
-                    # # Iteratively attempt to maximize the total similarity
-                    # for iteration in range(iterations):
-                    #     print("Iteration step: " + str(iteration))
-                    #     best_similarity_sum = -float('inf')
-                    #     best_order0 = current_order0.copy()
-                    
-                    #     # Generate random indices for i and j to iterate over
-                    #     random_indices = np.arange(num_elements)
-                    #     np.random.shuffle(random_indices)
-                        
-                    #     kk = 1
-                    #     # Try all possible pairs to swap and find the best configuration
-                    #     for i in random_indices:
-                    #         remaining_indices = random_indices[random_indices > i]
-                    #         np.random.shuffle(remaining_indices)
-                    
-                    #         for j in remaining_indices:
-                    #             # Swap columns i and j in targets_it_np
-                    #             targets_it_np[:, [i, j]] = targets_it_np[:, [j, i]]
-                    #             current_order0[i], current_order0[j] = current_order0[j], current_order0[i]
-                    
-                    #             # Calculate similarity and total similarity
-                    #             total_similarity = calculate_similarity(inputs_it_np, targets_it_np).sum()
-                    
-                    #             # If the new configuration is better, keep it
-                    #             if total_similarity > best_similarity_sum:
-                    #                 best_similarity_sum = total_similarity
-                    #                 best_order0 = current_order0.copy()
-                    #             else:
-                    #                 # Revert the swap
-                    #                 targets_it_np[:, [i, j]] = targets_it_np[:, [j, i]]
-                    #                 current_order0[i], current_order0[j] = current_order0[j], current_order0[i]
-                    
-                    #         if kk % 10 == 0:
-                    #             print("Iteration step: " + str(iteration) + ", (" + str(kk), "th), Current order after iterations:")
-                    #             print(current_order0[:30])
-                    
-                    #         # Calculate match rates
-                    #         match_rate_starting = np.sum(current_order0 == starting_order) / len(current_order0)
-                    #         match_rates_from_starting0.append(match_rate_starting)
-                    
-                    #         match_rate_ideal = np.sum(current_order0 == ideal_order) / len(current_order0)
-                    #         match_rates_from_ideal0.append(match_rate_ideal)
-                    
-                    #         match_rate_previous = np.sum(current_order0 == previous_order0) / len(current_order0)
-                    #         match_rates_from_previous0.append(match_rate_previous)
-                    #         kk += 1
-                    
-                    #     # Update current order and targets_it with the best found configuration
-                    #     current_order0 = best_order0
-                    #     targets_it_np = targets_it_np[:, current_order0]
-                    
-                    #     # Update previous order
-                    #     previous_order0 = current_order0.copy()
-                    
-                    # # Final order after iterations
-                    # final_order = current_order0.copy()
-                    # print("Final order after iterations:", final_order)
-                    
-                    # # Save final order to a text file
-                    # with open('final_order_with_answer_data.txt', 'w') as f:
-                    #     f.write(" ".join(map(str, final_order)))
-                    
-                    # # Plot the results
-                    # plt.figure(figsize=(10, 5))
-                    # plt.plot(match_rates_from_ideal0, label='Matching ratio with the correct order')
-                    # plt.plot(match_rates_from_starting0, label='Matching ratio with the swapped order')
-                    # plt.plot(match_rates_from_previous0, label='Matching ratio with the previous order')
-                    # plt.title('Matching ratios with several orders over iterations')
-                    # plt.xlabel('Iteration steps')
-                    # plt.ylabel('Matching ratio')
-                    # plt.legend()
-                    # plt.grid(True)
-                    # plt.savefig('Iteration_OrderMatchingRatio_with_knownanswer2.pdf')
-                    # plt.close()
-        
         ############################################################################
         ############################################################################
         ############################################################################
