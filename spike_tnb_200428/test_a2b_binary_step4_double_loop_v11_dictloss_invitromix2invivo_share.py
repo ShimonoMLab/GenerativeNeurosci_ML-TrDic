@@ -27,7 +27,7 @@ matplotlib.use('Agg')
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="torch.nn.functional")
 
-rootdir0 = "F:/python_home/200410_Music_Naka/home_dir_run/spike_tnb_200428"
+rootdir0 = os.getcwd() +"/" # "F:/python_home/200410_Music_Naka/home_dir_run/spike_tnb_200428"
 
 os.chdir( rootdir0 )
 
@@ -110,7 +110,6 @@ def adjust_threshold_init(output, target_density, initial_threshold=1, max_itera
     print("adjust_threshold: ")
     print("----_calculate_data_density、training dataの発火率を計算して、最適化している")
     # 出力データを非負にクリップ（ReLUを適用）
- #   epsilon = 1e-6
     print("Output unique values (original):", np.unique(output.cpu().numpy()))
              
     low, high = -0.1, 1.1  # low, high = 0, 1 から編集を行った
@@ -414,11 +413,6 @@ def organize_and_save_spike_data(infile2, outfile, num_cells, sep_size, init_cel
         cell_id = int(clusters[i])  # 細胞ID
         time_step = int(times[i])   # スパイクの発生時間
     
-        # # 細胞IDと時間ステップが範囲内か確認
-        # if init_cell_index <= cell_id < num_cells + init_cell_index and 0 <= time_step < sep_size:
-        #   #  print("(" + str(cell_id) + " , " + str(time_step) + ")")
-        #     spike_matrix[cell_id-init_cell_index, time_step] += 1  # スパイクをカウント
-
         # 細胞IDと時間ステップが範囲内か確認
         if init_cell_index <= cell_id < num_cells + init_cell_index: #  and 0 <= time_step < sep_size:
           #  print("(" + str(cell_id) + " , " + str(time_step) + ")")
@@ -1765,15 +1759,6 @@ for group_ID1 in group_IDs1:
                     
                     print(f"Mode id {mode2} - Updated Threshold: {self.threshold}")
         
-                    # print(f"****************************************************************")
-                    # if mode2 == 'generate':
-                    #     output = (output > self.threshold).float()
-                    #     print(f"Threshold of validation and test in _process_batch: {self.threshold}")
-                    #     print("Currently, the thresholding process is working!!")
-                    # else:
-                    #     print(f"Threshold of training in _process_batch: {self.threshold}")
-                    # print(f"****************************************************************")
-                    
                     print("_process_batch done.")
                     # 出力データの寸法を確認し、必要に応じて調整
                     output = output[:, 1:]  # 最後の時間ステップを除外（予測値の寸法調整）
@@ -1792,15 +1777,12 @@ for group_ID1 in group_IDs1:
                     print("current_density type:", type(current_density))
                     
                     loss = self.criterion(output, target, current_density, self.target_density,loss_show=1)
-               #     loss = self.criterion(output, target)
                     
                     
                     formatted_loss = f"{loss.item():.20f}"
                     calculated_loss = loss.item()  # loss の値自体を 100,000 倍する
                     print(f"Calculated loss: {calculated_loss:.20f}")  # 結果を表示
                     
-                    # 訓練時の処理
-                   # if is_train:
                     if mode2=='train':
                         print("Now, updating weights by back-propagations...")
                         loss.backward()  # 誤差逆伝播
@@ -1840,22 +1822,18 @@ for group_ID1 in group_IDs1:
                     train_data = torch.as_tensor(data[: train_size, :], dtype=torch.float32)
                     test_data  = torch.as_tensor(data[train_size : train_size+test_size, :], dtype=torch.float32)[:, used_test_order]  # シャッフルされた順序でテストデータを取得
                     valid_data = torch.as_tensor(data[train_size+test_size :, :], dtype=torch.float32)
-                 #   valid_data = torch.as_tensor(data[train_size+test_size : train_size+test_size+valid_size, :], dtype=torch.float32)
                     
                     # Calculate and print the mean and variance of the firing rate for each dataset
-                  #  valid_mean = torch.mean(torch.mean(valid_data, dim=0).values).values
                     valid_mean = torch.mean(valid_data, dim=0).mean()
                     valid_variance = torch.mean(torch.var(valid_data, dim=0))
                     print("Validation Data - Mean of Firing Rate:", valid_mean)
                     print("Validation Data - Variance of Firing Rate:", valid_variance)
                     
-                  #  train_mean = torch.mean(torch.mean(train_data, dim=0).values).values
                     train_mean = torch.mean(train_data, dim=0).mean()
                     train_variance = torch.mean(torch.var(train_data, dim=0))
                     print("Training Data - Mean of Firing Rate:", train_mean)
                     print("Training Data - Variance of Firing Rate:", train_variance)
                     
-                   # test_mean = torch.mean(torch.mean(test_data, dim=0).values).values
                     test_mean = torch.mean(test_data, dim=0).mean()
                     test_variance = torch.mean(torch.var(test_data, dim=0))
                     print("Test Data - Mean of Firing Rate:", test_mean)
@@ -1899,17 +1877,6 @@ for group_ID1 in group_IDs1:
                             plt.tick_params(axis='both', which='major', labelsize=12)
                             plt.axvline(x=self.threshold, color='red', linestyle='--', linewidth=2)  # Threshold in red dashed line
                             plt.tight_layout()
-                          #  plt.savefig(f"{gen_dir}/GenSigHist_BeforeThreshold_batch_{start // batch_size + 1}.pdf")
-                          #  plt.close()
-                            
-                            # # Apply quantization
-                            # if quantization_mode == 'threshold':
-                            #     output = (output > self.threshold).float()
-                            #     print(f"Threshold in generation: {self.threshold}")
-                            # # elif quantization_mode == 'sample':
-                            # #     output = sample(output)
-                            # else:
-                            #     raise ValueError(f"Unsupported quantization mode: {quantization_mode}")
                             
                             results.append(output.cpu())  # Store results on CPU to save GPU memory
                     
@@ -1923,9 +1890,6 @@ for group_ID1 in group_IDs1:
             data_name_train10_fortransform0 = list()
             data_name_test10_fortransform0 = list()
             
-          #  for i in range(1,epoch_num_test+1):
-          #     data_name_train10_fortransform0.append(region_date_train[i])
-               
             for i in range(1,epoch_num_test+1):
                data_name_train10_fortransform0.append(region_date_train[i])
                data_name_test10_fortransform0.append(region_date_test[i])
@@ -1975,7 +1939,7 @@ for group_ID1 in group_IDs1:
                     
                     for run_index in range(1, 3 ,1):
                         
-                        os.chdir( "F:/python_home/200410_Music_Naka/home_dir_run/spike_tnb_200428/data/" )
+                        os.chdir( rootdir0 + "/data/" )
                         data_name_train_bf1 = "128neuron_rep" + str(epoch_num) 
                         data_name_bf2 = data_name_train_bf1 + "/Group"+str(group_ID1)+"_"+ region_id_train0[run_index2] + str(region_date_train[run_index2]) + "_" + region_id_train0[run_index2] + str(region_date_train[run_index2])        
                         
@@ -1988,12 +1952,8 @@ for group_ID1 in group_IDs1:
                                 
                         data_name03 = edit_data_name(region_id_test0[run_index3] + str(region_date_test[run_index3])) + "_depth_min" + str(depth_min_test[run_index3]) + "_max" + str(depth_max_test[run_index3])
                         data_name_main  = data_name_bf2 + "/" + data_name03
-                       # data_name  = data_name_bf2 + "/" + region_id_test[data_index_test] + str(region_date_test[data_index_test])
                         os.makedirs("./" + data_name_main, exist_ok=True)
                 
-                    #   data_name_main  = data_name_bf2 + "/" + region_id_test0[run_index3] + str(region_date_test[run_index3])
-                    #    os.makedirs("./" + data_name_main, exist_ok=True)
-                        
                         print("run_index3:" + str(run_index3) )
                         data_name_train10.append(region_date_test[run_index3])
                         data_name_train10.append(region_date_test[run_index3])
@@ -2038,12 +1998,6 @@ for group_ID1 in group_IDs1:
                             import math
                             return np.log10(input)
                             
-                #    data_length = 2_500_000
-                #    data_length = 2_000_000
-                #    data_length = 1_600_000
-                #    data_length = 1_500_000
-                #    data_length = 1_400_000
-                #   data_length = 1_250_000
                         data_length = 312_500
                                 
                         kkm = 1
@@ -2052,12 +2006,9 @@ for group_ID1 in group_IDs1:
                                 used_steps_LSTM = round((data_length))
                                 sep_size = round((data_length)/len(connect_list))  #  (len(data_name_train10))) 
                                 
-                            #    data_dir_spykes = "F:\python_home\200410_Music_Naka\home_dir_run\Sharing_whole_SizeSame128e128/" + region_date_train[nnm]+ "001/"
-                            #    start_time_step = 3_600_000 +nnm * sep_size 
                                 if kkm <= 2:
                                    data_dir_spykes = "../../Sharing_whole_SizeSame128/" + region_date_train[1] + "001/"
                                    start_time_step = 3_600_000 +nnm * sep_size 
-                                #   start_time_step = 1800_000 + nnm * sep_size
                                 else:
                                    data_dir_spykes = "../../Sharing_whole_SizeSame128/" + region_date_test[1] + "/"
                                    start_time_step = 1_000_000 +nnm * sep_size
@@ -2068,15 +2019,6 @@ for group_ID1 in group_IDs1:
                                 depth_max_test0 = depth_max_test_all[kkm-1]
                                 data_sep, extract_index = div_weig_ryo(data_dir_spykes, len(connect_list), start_time_step  , used_steps_LSTM, sep_size,  init_cell_index , depth_min_test0, depth_max_test0 )
                                 
-                                # print("||||||||||||||||||||||||||||||")
-                                # print("||||||||||||||||||||||||||||||")
-                                # print("||||||||||||||||||||||||||||||")
-                                # print("||||||||||||||||||||||||||||||")
-                                # print(str(kkm) + ':')
-                                # print(str(data_sep.shape))
-                                # print("||||||||||||||||||||||||||||||")
-                                # print("||||||||||||||||||||||||||||||")
-                                # print("||||||||||||||||||||||||||||||")
                                 
                                 if kkm == 1:
                                     data_all = copy.copy(data_sep)
@@ -2084,7 +2026,6 @@ for group_ID1 in group_IDs1:
                                     data_all = np.append(data_all, data_sep, axis = 0)
                                 kkm = kkm + 1
                         
-                      #  os.chdir( "../" )
                         print(os.getcwd())
                         os.makedirs("./", exist_ok=True)
                         os.makedirs("./" + data_name_main, exist_ok=True)
@@ -2143,16 +2084,7 @@ for group_ID1 in group_IDs1:
                         np.save( gen_dir2 + "/spikes.npy" , data_all )
                         spikes = np.load(gen_dir2+'/spikes.npy') # , spikes)
                         
-                        # split_spikes = np.array([
-                        #      spikes[i*data_length:(i+1)*data_length]
-                        #      for i in range(0, spikes.shape[0]//data_length)])
-                         
-                        # np.save(gen_dir2+'/split_spikes.npy', split_spikes)
                         nNeuron = data_all.shape[1]
-                        
-               #         del data_all 
-               #         del spikes
-                        
                         
                         print("======================================================================")
                         shutil.copy("./config.ini" , "./config_" + str(data_name_main_forconfig) +".ini" )
@@ -2290,7 +2222,7 @@ for group_ID1 in group_IDs1:
                             
                             gen_dir2_index1 = "./config_" + str(data_name_main_forconfig) +".ini"
                             gen_dir2_now2 = gen_dir + "/log_config.ini"
-                            os.chdir( "F:/python_home/200410_Music_Naka/home_dir_run/spike_tnb_200428/data/" )
+                            os.chdir( rootdir0 + "/data/" )
                             shutil.copy(gen_dir2_index1, gen_dir2_now2)
                             
                             os.chdir(gen_dir)
